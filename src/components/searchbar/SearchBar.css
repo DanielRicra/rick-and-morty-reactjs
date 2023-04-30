@@ -1,0 +1,32 @@
+.search-bar {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  justify-content: center;
+}
+
+.search-bar input {
+  border: 1px solid var(--input-border-color);
+  padding: .8rem;
+  outline: none;
+  background-color: transparent;
+  border-radius: .4rem 0 0 .4rem;
+  font-size: 16px;
+  color: var(--text-color);
+  max-width: 500px;
+  width: 100%;
+}
+
+.search-bar button {
+  color: var(--text-color);
+  background-color: var(--input-border-color);
+  border: none;
+  border-radius: 0 .4rem .4rem 0;
+  font-size: 16px;
+  padding: 0 .5rem;
+}
+
+.search-bar button:hover {
+  cursor: pointer;
+  background-color: var(--input-border-color);
+}
