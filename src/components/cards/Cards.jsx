@@ -1,8 +1,9 @@
 import Card from './Card';
+import './Cards.css';
 
 export default function Cards({ characters }) {
    return (
-      <div>
+      <div className='cards'>
          {characters.map((character) => (
             <Card
                key={character.id}
