@@ -29,6 +29,7 @@
   text-transform: capitalize;
   padding: .5rem 1rem;
   border-radius: .5rem;
+  font-size: 16px;
 }
 
 .navbar__links a:hover {
@@ -38,6 +39,21 @@
 .navbar__links a.active {
   color: var(--active-text-color);
   background-color: #6666;
+}
+
+.navbar-logout button {
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  text-transform: capitalize;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  font-size: 16px;
+}
+
+.navbar-logout button:hover {
+  background-color: #6666;
+  cursor: pointer;
 }
 
 .navbar__theme-switch {
