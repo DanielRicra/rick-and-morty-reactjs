@@ -15,15 +15,17 @@
   color: var(--text-color);
   max-width: 500px;
   width: 100%;
+  max-width: 300px;
 }
 
 .search-bar button {
-  color: var(--text-color);
+  color: #f1f1f8;
   background-color: var(--input-border-color);
   border: none;
   border-radius: 0 .4rem .4rem 0;
   font-size: 16px;
   padding: 0 .5rem;
+  font-weight: 600;
 }
 
 .search-bar button:hover {
