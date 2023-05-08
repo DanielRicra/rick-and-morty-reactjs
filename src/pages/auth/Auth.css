@@ -1,0 +1,79 @@
+.auth {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.auth__form-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.auth__form-item input {
+  border: none;
+  padding: .5rem;
+  background-color: transparent;
+  border-bottom: 2px solid var(--text-color2);
+  font-size: 16px;
+  color: var(--text-color);
+  width: 100%;
+  outline: none;
+}
+.auth__form-item input:focus {
+  border-bottom: 2px solid var(--input-border-color);
+}
+
+.auth__form-item input.error {
+  border-color: rgb(255, 76, 58);
+}
+
+.auth__form-item label {
+  color: var(--text-color2);
+  font-size: 16px;
+}
+
+.auth__form-item p {
+  font-size: 14px;
+  margin-top: .25rem;
+  line-height: 1.5;
+}
+
+.auth__form-item-errors span {
+  font-size: 12px;
+  line-height: 15px;
+  color: rgb(255, 76, 58);
+  margin-left: .5rem;
+  display: block;
+  margin-top: 3px;
+}
+
+.auth__form button {
+  padding: .6rem;
+  background-color: var(--button-background-color);
+  border: none;
+  margin-top: .3rem;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--text-color);
+}
+.auth__form button:focus {
+  outline-style: dashed;
+  outline-offset: 2px;
+  outline-width: 2px;
+  outline-color: var(--button-background-color);
+}
+
+.auth__form button:hover {
+  background-color: var(--button-background-hover);
+  cursor: pointer;
+}

@@ -1,0 +1,44 @@
+.character-detail {
+  display: flex;
+  justify-content: center;
+  flex-direction: row-reverse;
+  width: 100%;
+  gap: 2rem;
+}
+
+.character-detail__error {
+  display: inline-block;
+  margin-top: 2rem;
+}
+
+.character-detail__loading {
+  font-size: 24px;
+  color: var(--text-color2);
+  animation: loading 100ms ease-in-out infinite;
+}
+
+@keyframes loading {
+  from { opacity: .5; }
+  to { opacity: 1; }
+}
+
+.character-detail__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  align-items: flex-start;
+  font-size: 16px;
+}
+
+.character-detail__info span {
+  color: var(--text-color2);
+  font-size: 15px;
+}
+
+.character-detail img {
+  flex: 1;
+  max-width: 440px;
+  border-radius: .5rem;
+  object-fit: contain;
+}

@@ -1,0 +1,19 @@
+.home {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.home__characters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home__characters h2 {
+  width: 100%;
+  text-align: left;
+  font-size: 32px;
+  font-weight: 500;
+}

@@ -1,0 +1,24 @@
+.notFound {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+}
+
+.notFound h2 {
+  font-size: 42px;
+}
+
+.notFound button {
+  padding: .6rem 1rem;
+  border-radius: .5rem;
+  background-color: var(--input-border-color);
+  border: none;
+}
+
+.notFound a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 16px;
+}
