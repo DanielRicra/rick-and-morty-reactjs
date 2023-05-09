@@ -78,7 +78,7 @@ const Authentication = ({ login }) => {
             name="password"
             id="password"
             type="password"
-            required
+            placeholder="Write your password..."
             onChange={handleChange}
             value={formData.password}
             className={formErrors.password.error ? 'error' : ''}
