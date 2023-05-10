@@ -30,12 +30,11 @@ function Card({ character, onClose, addToFavorites, myFavorites, removeFromFavor
 
    const handleFavorite = () => {
       if (isFavorite) {
-         setIsFavorite(false);
          removeFromFavorites(character.id);
       } else {
-         setIsFavorite(true);
          addToFavorites(character);
       }
+      setIsFavorite((prev) => !prev);
    }
 
    useEffect(() => {
