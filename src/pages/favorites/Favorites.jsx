@@ -1,14 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { connect } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react";
 
 import { removeFromFavorites } from '../../redux/actions';
 import Card from "../../components/cards/Card";
 import './Favorites.css';
 
-const Favorites = ({ access, setCharacters, myFavorites, removeFromFavorites }) => {
+const Favorites = ({ access, setCharacters }) => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const myFavorites = useSelector((state) => state.myFavorites);
+  
   useEffect(() => {
     if (!access) {
       navigate('/');
@@ -16,13 +18,13 @@ const Favorites = ({ access, setCharacters, myFavorites, removeFromFavorites }) 
   }, [access, navigate]);
 
   const handleRemoveCard = (id) => {
-    removeFromFavorites(id);
+    dispatch(removeFromFavorites(id));
     setCharacters((prev) => prev.filter((c) => c.id !== id))
   }
 
   return (
     <div className='favorites container'>
-      {myFavorites.map((character) => (
+      {myFavorites?.map((character) => (
         <Card
           key={character.id}
           character={character}
@@ -33,16 +35,4 @@ const Favorites = ({ access, setCharacters, myFavorites, removeFromFavorites }) 
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    myFavorites: state.myFavorites,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-     removeFromFavorites: (characterId) => dispatch(removeFromFavorites(characterId)),
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

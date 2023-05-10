@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './Card.css';
@@ -8,10 +8,12 @@ import { trashIcon } from '../../assets';
 import { sleep } from '../../utils/helpers';
 import { addToFavorites, removeFromFavorites } from '../../redux/actions';
 
-function Card({ character, onClose, addToFavorites, myFavorites, removeFromFavorites }) {
+function Card({ character, onClose }) {
    const cardRef = useRef(null);
    const [isFavorite, setIsFavorite] = useState(false);
    const [imageHovered, setImageHovered] = useState(false);
+   const dispatch = useDispatch();
+   const myFavorites = useSelector((state) => state.myFavorites);
 
    const handleClick = () => {
       const style = cardRef?.current?.style;
@@ -25,15 +27,14 @@ function Card({ character, onClose, addToFavorites, myFavorites, removeFromFavor
          onClose();
       });
 
-      removeFromFavorites(character.id);
+      dispatch(removeFromFavorites(character.id));
    }
 
    const handleFavorite = () => {
-      if (isFavorite) {
-         removeFromFavorites(character.id);
-      } else {
-         addToFavorites(character);
-      }
+      const updateFavorites = isFavorite ?
+            () => removeFromFavorites(character.id) : 
+            () => addToFavorites(character);
+      dispatch(updateFavorites());
       setIsFavorite((prev) => !prev);
    }
 
@@ -77,17 +78,4 @@ function Card({ character, onClose, addToFavorites, myFavorites, removeFromFavor
    );
 }
 
-const mapStateToProps = (state) => {
-   return {
-      myFavorites: state.myFavorites,
-   }
-}
-
-const mapDispatchToProps = (dispatch) => {
-   return {
-      addToFavorites: (character) => dispatch(addToFavorites(character)),
-      removeFromFavorites: (characterId) => dispatch(removeFromFavorites(characterId)),
-   }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default Card;
