@@ -26,6 +26,9 @@ const NavBar = ({ theme, changeTheme, onSearch, searchQuery, setSearchQuery, set
         <li>
           <NavLink to='/about'>about</NavLink>
         </li>
+        <li>
+          <NavLink to='/favorites'>Favorites</NavLink>
+        </li>
       </ul>
 
       <SearchBar {...searchBarProps} />
