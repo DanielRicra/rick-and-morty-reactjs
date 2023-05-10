@@ -1,13 +1,77 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,500;1,700&display=swap');
+
+:root {
+  --background-color: #1f1c2c;
+  --navbar-background-color: #2e2942;
+  --card-background-color: #322d47;
+  --text-color: #e9e9e9;
+  --text-color2: #b1b2b3;
+  --active-text-color: #b4a9f0;
+  --heading-text-color: #f9f9f9;
+  --background-theme-color: #3b3b49;
+  --input-border-color: rgb(110, 68, 224);
+  --button-background-hover: rgb(118, 81, 221);
+  --button-background-color: rgb(86, 51, 180);
+  --filter-input-password-eye:  invert(100%);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+p {
+  padding: 0;
+  margin: 0;
+}
+
+[data-theme="light"] {
+  --background-color: #b9f5db;
+  --navbar-background-color: #b7ebd5;
+  --card-background-color: rgb(211, 211, 211);
+  --text-color: #201e1e;
+  --text-color2: #302e2e;
+  --active-text-color: #38344e;
+  --heading-text-color: #111111;
+  --background-theme-color: #b9b9cf;
+  --filter-input-password-eye:  invert(0%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+input[type='password']::-ms-reveal {
+  filter: var(--filter-input-password-eye);
+}
+
+body, button, input {
+  font-family: 'Rubik', sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+.container {
+  padding: 2.5rem 0.6rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    max-width: 1100px;
+    padding: 2.5rem 0.2rem;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+    padding: 2.5rem 0.2rem;
+  }
 }
