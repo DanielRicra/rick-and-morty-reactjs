@@ -1,19 +1,21 @@
-import { useRef } from 'react';
+import { useEffect } from 'react';
+import { useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './Card.css';
 import { trashIcon } from '../../assets';
-import { Link } from 'react-router-dom';
+import { sleep } from '../../utils/helpers';
+import { addToFavorites, removeFromFavorites } from '../../redux/actions';
 
-function Card({ character, onClose }) {
+function Card({ character, onClose, addToFavorites, myFavorites, removeFromFavorites }) {
    const cardRef = useRef(null);
-
-   async function sleep(time) {
-      return new Promise((resolve) => setTimeout(resolve, time));
-   }
+   const [isFavorite, setIsFavorite] = useState(false);
+   const [imageHovered, setImageHovered] = useState(false);
 
    const handleClick = () => {
       const style = cardRef?.current?.style;
-      
+
       style.transition = 'all 0.3s ease-out';
       style.transform = 'translateX(-110%) scale(0.5)';
       style.opacity = '0';
@@ -22,13 +24,32 @@ function Card({ character, onClose }) {
       sleep(300).then(() => {
          onClose();
       });
+
+      removeFromFavorites(character.id);
    }
+
+   const handleFavorite = () => {
+      if (isFavorite) {
+         setIsFavorite(false);
+         removeFromFavorites(character.id);
+      } else {
+         setIsFavorite(true);
+         addToFavorites(character);
+      }
+   }
+
+   useEffect(() => {
+      if (myFavorites.find((fav) => fav.id === character.id)) {
+         setIsFavorite(true);
+      }
+   }, [myFavorites, character]);
 
    return (
       <div className='card' ref={cardRef}>
          <button type='button' className='card__close-card-button' onClick={handleClick}>
             <img src={trashIcon} alt="delete-icon" />
          </button>
+
          <div className='card__info'>
             <h3><Link to={`/detail/${character.id}`}>{character.name}</Link></h3>
             <div className='card__character-status'>
@@ -38,9 +59,36 @@ function Card({ character, onClose }) {
             <p><span>Origin: </span>{character.origin?.name}</p>
             <p>{character.gender}</p>
          </div>
-         <img src={character.image} alt={character.name} />
+         <div
+            className='card__image'
+            onMouseEnter={() => setImageHovered(true)}
+            onMouseLeave={() => setImageHovered(false)}
+         >
+            <img
+               src={character.image}
+               alt={character.name}
+            />
+            {imageHovered && (
+               <button type='button' className='card__favorite-button' onClick={handleFavorite}>
+                  {isFavorite ? '♥' : '♡'}
+               </button>
+            )}
+         </div>
       </div>
    );
 }
 
-export default Card;
+const mapStateToProps = (state) => {
+   return {
+      myFavorites: state.myFavorites,
+   }
+}
+
+const mapDispatchToProps = (dispatch) => {
+   return {
+      addToFavorites: (character) => dispatch(addToFavorites(character)),
+      removeFromFavorites: (characterId) => dispatch(removeFromFavorites(characterId)),
+   }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
