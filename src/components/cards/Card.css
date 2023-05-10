@@ -28,10 +28,6 @@
   }
 }
 
-.card:hover {
-  transform: scale(1.02);
-} 
-
 .card__character-status {
   display: flex;
   align-items: center;
@@ -45,11 +41,11 @@
 }
 
 .red {
-  background-color: rgb(243, 3, 3);
+  background-color: #f30303;
 }
 
 .green {
-  background-color: rgb(5, 223, 41);
+  background-color: #05df29;
 }
 
 .card__info {
@@ -91,9 +87,34 @@
   color: var(--text-color);
 }
 
-.card img {
+.card__image {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__image img {
   border-radius: .5rem;
   width: 100%;
+  transition: transform 0.5s ease-in 0.3s;
+}
+
+.card__image:hover img {
+  transform: scale(1.1);
+}
+
+.card__image:hover::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  display: block;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.35);
 }
 
 .card p {
@@ -135,4 +156,42 @@
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.199);
   box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.164);
+}
+
+.card__favorite-button {
+  border: none;
+  padding: .5rem;
+  position: absolute;
+  color: #e90b0b;
+  font-weight: 700;
+  background-color: transparent;
+  font-size: 34px;
+  width: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 34px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.76);
+  transition: transform 300ms ease;
+  z-index: 50;
+}
+
+.card__favorite-button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card__favorite-button:active {
+  background-color: rgba(0, 0, 0, 0.226);
+  animation: heart 300ms ease-out;
+}
+
+@keyframes heart {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(2);
+  }
 }
