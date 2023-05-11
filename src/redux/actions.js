@@ -7,7 +7,7 @@ const actionTypes = {
 const addToFavorites = (character) => {
   return {
     type: actionTypes.ADD_TO_FAVORITES,
-    payload: { ...character }
+    payload: { character }
   }
 }
 

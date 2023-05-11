@@ -5,17 +5,19 @@ const initialState = {
 }
 
 function favoritesReducer(state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case actionTypes.ADD_TO_FAVORITES:
       return {
         ...state,
-        myFavorites: [...state.myFavorites, action.payload],
+        myFavorites: [...state.myFavorites, payload.character],
       }
     case actionTypes.REMOVE_FROM_FAVORITES:
       return {
         ...state,
-        myFavorites: state.myFavorites
-          .filter((character) => character.id !== action.payload.characterId),
+        myFavorites: [...state.myFavorites
+          .filter((character) => character.id !== payload.characterId)],
       }
     default:
       return { ...state }
