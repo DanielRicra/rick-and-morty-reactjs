@@ -1,7 +1,9 @@
 
 const actionTypes = {
   ADD_TO_FAVORITES: 'ADD_TO_FAVORITES',
-  REMOVE_FROM_FAVORITES: 'REMOVE_FROM_FAVORITES'
+  REMOVE_FROM_FAVORITES: 'REMOVE_FROM_FAVORITES',
+  FILTER_BY_GENDER: 'FILTER_BY_GENDER',
+  ORDER: 'ORDER',
 }
 
 const addToFavorites = (character) => {
@@ -18,8 +20,24 @@ const removeFromFavorites = (characterId) => {
   }
 }
 
+const setFilterByGender = (gender) => {
+  return {
+    type: actionTypes.FILTER_BY_GENDER,
+    payload: { gender }
+  }
+}
+
+const setOrder = (order) => {
+  return {
+    type: actionTypes.ORDER,
+    payload: { order }
+  }
+}
+
 export { 
   addToFavorites,
   removeFromFavorites,
+  setFilterByGender,
+  setOrder,
   actionTypes,
 }

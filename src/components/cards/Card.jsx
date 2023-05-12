@@ -13,7 +13,7 @@ function Card({ character, onClose }) {
    const [isFavorite, setIsFavorite] = useState(false);
    const [imageHovered, setImageHovered] = useState(false);
    const dispatch = useDispatch();
-   const myFavorites = useSelector((state) => state.myFavorites);
+   const myFavorites = useSelector((state) => state.favorites.myFavorites);
 
    const handleClick = () => {
       const style = cardRef?.current?.style;
