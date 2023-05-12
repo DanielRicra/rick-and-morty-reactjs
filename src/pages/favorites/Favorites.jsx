@@ -10,7 +10,7 @@ function getFilteredData(characters, filter, order) {
   const sortCb = order === 'asc' ? (a, b) => a.id - b.id : (a, b) => b.id - a.id;
   if (filter === 'all') {
     return characters.sort(sortCb);
-  } 
+  }
 
   return characters
     .filter((character) => character.gender.toLowerCase() === filter)
@@ -20,15 +20,15 @@ function getFilteredData(characters, filter, order) {
 const Favorites = ({ access, setCharacters }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const filtered = useSelector((state) => {
     return getFilteredData(
-        state.favorites.myFavorites,
-        state.filterOrder.filter,
-        state.filterOrder.order
-      )
+      state.favorites.myFavorites,
+      state.filterOrder.filter,
+      state.filterOrder.order
+    )
   });
-  
+
   useEffect(() => {
     if (!access) {
       navigate('/');
@@ -50,13 +50,13 @@ const Favorites = ({ access, setCharacters }) => {
 
   return (
     <div className='favorites container'>
-      <div>
-        <select name="order" onChange={handleOrder}>
+      <div className='favorites__buttons'>
+        <select className='favorites__buttons-order' name="order" onChange={handleOrder}>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
 
-        <select name="gender" onChange={handleFilter}>
+        <select className='favorites__buttons-gender' name="gender" onChange={handleFilter}>
           <option value="all">All</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
@@ -65,13 +65,15 @@ const Favorites = ({ access, setCharacters }) => {
         </select>
       </div>
 
-      {filtered?.map((character) => (
-        <Card
-          key={character.id}
-          character={character}
-          onClose={() => handleRemoveCard(character.id)}
-        />
-      ))}
+      <div className='favorites__cards'>
+        {filtered?.map((character) => (
+          <Card
+            key={character.id}
+            character={character}
+            onClose={() => handleRemoveCard(character.id)}
+          />
+        ))}
+      </div>
     </div>
   )
 }
