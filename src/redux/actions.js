@@ -23,14 +23,14 @@ const removeFromFavorites = (characterId) => {
 const setFilterByGender = (gender) => {
   return {
     type: actionTypes.FILTER_BY_GENDER,
-    payload: { gender }
+    payload: gender
   }
 }
 
 const setOrder = (order) => {
   return {
     type: actionTypes.ORDER,
-    payload: { order }
+    payload: order
   }
 }
 

@@ -27,22 +27,30 @@ function favorites(state = initialState, action) {
   }
 }
 
-function  filterOrder(state = { order: 'asc', filter: 'all' }, action) {
+function  filter(state = 'all', action) {
   const { type, payload } = action;
 
   switch (type) {
     case actionTypes.FILTER_BY_GENDER:
-      return { ...state, filter: payload.gender  };
-    case actionTypes.ORDER:
-      return { ...state, order: payload.order };
+      return payload;
     default:
-      return { ...state };
+      return state;
+  }
+}
+
+function order(state = 'asc', action) {
+  switch (action.type) {
+    case actionTypes.ORDER:
+      return action.payload;
+    default:
+      return state;
   }
 }
 
 const rootReducer = combineReducers({
   favorites,
-  filterOrder,
+  filter,
+  order,
 });
 
 

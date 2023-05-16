@@ -21,12 +21,15 @@ const Favorites = ({ access, setCharacters }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const order = useSelector((state) => state.order);
+  const filter = useSelector((state) => state.filter);
+
   const filtered = useSelector((state) => {
     return getFilteredData(
       state.favorites.myFavorites,
-      state.filterOrder.filter,
-      state.filterOrder.order
-    )
+      filter,
+      order
+    );
   });
 
   useEffect(() => {
@@ -50,13 +53,13 @@ const Favorites = ({ access, setCharacters }) => {
 
   return (
     <div className='favorites container'>
-      <div className='favorites__buttons'>
-        <select className='favorites__buttons-order' name="order" onChange={handleOrder}>
+      <div className='favorites__selects'>
+        <select className='favorites__select-order' title='order' name="order" onChange={handleOrder}>
           <option value="asc">Ascending</option>
           <option value="desc">Descending</option>
         </select>
 
-        <select className='favorites__buttons-gender' name="gender" onChange={handleFilter}>
+        <select className='favorites__select-gender' title='gender' name="gender" onChange={handleFilter}>
           <option value="all">All</option>
           <option value="female">Female</option>
           <option value="male">Male</option>
@@ -66,7 +69,9 @@ const Favorites = ({ access, setCharacters }) => {
       </div>
 
       <div className='favorites__cards'>
-        {filtered?.map((character) => (
+        {filtered.length === 0 ? 
+          <h1>No characters for {filter} filter</h1> 
+          : filtered.map((character) => (
           <Card
             key={character.id}
             character={character}
