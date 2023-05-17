@@ -1,14 +1,5 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-const About = ({ access }) => {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    if (!access) {
-      navigate('/');
-    }
-  }, [access, navigate]);
+const About = () => {
 
   return (
     <div className="container">

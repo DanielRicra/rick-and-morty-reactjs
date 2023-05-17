@@ -1,28 +1,16 @@
-import { useNavigate } from 'react-router-dom';
-import Cards from '../../components/cards/Cards'
-
 import './Home.css';
-import { useEffect } from 'react';
+import Cards from '../../components/cards/Cards';
 
-const Home = ({ characters, setCharacters, access }) => {
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!access) {
-      navigate('/');
-    }
-  }, [access, navigate]);
-  
+const Home = ({ characters, removeCharacter }) => {
 
   return (
     <div className='home container'>
       <div className='home__characters'>
         <h2>Characters</h2>
-        <Cards characters={characters} setCharacters={setCharacters} />
+        <Cards characters={characters} removeCharacter={removeCharacter} />
       </div>
     </div>
   )
 }
 
-export default Home
+export default Home;

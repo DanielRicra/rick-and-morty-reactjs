@@ -1,6 +1,4 @@
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react";
 
 import { removeFromFavorites, setFilterByGender, setOrder } from '../../redux/actions';
 import Card from "../../components/cards/Card";
@@ -17,30 +15,23 @@ function getFilteredData(characters, filter, order) {
     .sort(sortCb);
 }
 
-const Favorites = ({ access, setCharacters }) => {
-  const navigate = useNavigate();
+const Favorites = ({ access, removeCharacter }) => {
   const dispatch = useDispatch();
 
   const order = useSelector((state) => state.order);
   const filter = useSelector((state) => state.filter);
 
   const filtered = useSelector((state) => {
-    return getFilteredData(
-      state.favorites.myFavorites,
-      filter,
-      order
-    );
-  });
-
-  useEffect(() => {
-    if (!access) {
-      navigate('/');
-    }
-  }, [access, navigate]);
+      return getFilteredData(
+        state.favorites.myFavorites,
+        filter,
+        order
+      );
+    });
 
   const handleRemoveCard = (id) => {
     dispatch(removeFromFavorites(id));
-    setCharacters((prev) => prev.filter((c) => c.id !== id))
+    removeCharacter(id);
   }
 
   const handleOrder = (e) => {
@@ -75,7 +66,7 @@ const Favorites = ({ access, setCharacters }) => {
           <Card
             key={character.id}
             character={character}
-            onClose={() => handleRemoveCard(character.id)}
+            removeCard={() => handleRemoveCard(character.id)}
           />
         ))}
       </div>

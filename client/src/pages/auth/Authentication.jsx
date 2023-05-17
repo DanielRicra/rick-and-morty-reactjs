@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { formValidation } from "../../utils/validation";
 import './Auth.css';
+import { AuthenticationContext } from "../../context/AuthenticationContext";
 
-const Authentication = ({ login }) => {
+const Authentication = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [formErrors, setFormErrors] = useState({
     email: {
@@ -14,6 +15,7 @@ const Authentication = ({ login }) => {
       messages: [],
     }
   });
+  const { login } = useContext(AuthenticationContext)
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,7 +36,7 @@ const Authentication = ({ login }) => {
         }
       }
     ));
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,7 +47,7 @@ const Authentication = ({ login }) => {
       return;
     }
     login(formData);
-  }
+  };
 
   return (
     <div className="auth">
