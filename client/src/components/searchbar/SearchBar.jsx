@@ -7,7 +7,7 @@ export default function SearchBar({ onSearch, setSearchQuery, searchQuery }) {
 
    return (
       <form className='search-bar' onSubmit={onSearch}>
-         <input type='text' onChange={handleChange} value={searchQuery} placeholder='Search' />
+         <input type='text' onChange={handleChange} value={searchQuery} placeholder='Search with id...' />
          <button onClick={onSearch} type='button'>Add with Id</button>
       </form>
    );

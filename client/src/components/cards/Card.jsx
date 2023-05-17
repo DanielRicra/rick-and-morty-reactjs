@@ -8,14 +8,14 @@ import { trashIcon } from '../../assets';
 import { sleep } from '../../utils/helpers';
 import { addToFavorites, removeFromFavorites } from '../../redux/actions';
 
-function Card({ character, onClose }) {
+function Card({ character, removeCard }) {
    const cardRef = useRef(null);
    const [isFavorite, setIsFavorite] = useState(false);
    const [imageHovered, setImageHovered] = useState(false);
    const dispatch = useDispatch();
    const myFavorites = useSelector((state) => state.favorites.myFavorites);
 
-   const handleClick = () => {
+   const handleRemoveCard = () => {
       const style = cardRef?.current?.style;
 
       style.transition = 'all 0.3s ease-out';
@@ -24,7 +24,7 @@ function Card({ character, onClose }) {
       style.width = '0';
       style.zIndex = '0';
       sleep(300).then(() => {
-         onClose();
+         removeCard();
       });
 
       dispatch(removeFromFavorites(character.id));
@@ -46,7 +46,7 @@ function Card({ character, onClose }) {
 
    return (
       <div className='card' ref={cardRef}>
-         <button type='button' className='card__close-card-button' onClick={handleClick}>
+         <button type='button' className='card__close-card-button' onClick={handleRemoveCard}>
             <img src={trashIcon} alt="delete-icon" />
          </button>
 

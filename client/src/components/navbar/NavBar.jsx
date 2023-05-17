@@ -1,15 +1,21 @@
 import { Link, NavLink } from 'react-router-dom';
+import { useContext, useState } from 'react';
 
 import './NavBar.css';
 import SearchBar from '../searchbar/SearchBar';
 import { logo, sunIcon, moonIcon } from '../../assets';
+import { AuthenticationContext } from '../../context/AuthenticationContext';
 
-const NavBar = ({ theme, changeTheme, onSearch, searchQuery, setSearchQuery, setAccess }) => {
-  const searchBarProps = {onSearch, searchQuery, setSearchQuery}
-
-  const handleLogout = () => {
-    setAccess(false);
+const NavBar = ({ onSearch, searchQuery, setSearchQuery }) => {
+  const [theme, setTheme] = useState('dark');
+  const { logout } = useContext(AuthenticationContext);
+  
+  const changeTheme = () => {
+    document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
+    setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark');
   }
+  
+  const searchBarProps = { onSearch, searchQuery, setSearchQuery };
 
   return (
     <nav className='navbar'>
@@ -39,7 +45,7 @@ const NavBar = ({ theme, changeTheme, onSearch, searchQuery, setSearchQuery, set
       </div>
 
       <div className='navbar-logout'>
-        <button type='button' onClick={handleLogout}>Logout</button>
+        <button type='button' onClick={logout}>Logout</button>
       </div>
     </nav>
   )
