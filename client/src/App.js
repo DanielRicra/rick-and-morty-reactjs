@@ -1,39 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-import NavBar from './components/navbar/NavBar';
 import { About, Authentication, Detail, Home, NotFound, Favorites } from './pages';
-
-const BASE_URL = 'https://rickandmortyapi.com/api/character';
-const EMAIL = 'test@gmail.com';
-const PASSWORD = 'some45';
+import { fetchCharacterById } from './services/characterService';
+import AuthenticationProvider from './context/AuthenticationContext';
+import ProtectedRoutes from './components/ProtectedRoutes';
 
 function App() {
-   const [characters, setCharacters] = useState([]);
    const [searchQuery, setSearchQuery] = useState('');
-   const [theme, setTheme] = useState('dark');
-   const [access, setAccess] = useState(false);
-   const location = useLocation();
-   const navigate = useNavigate();
-
-   useEffect(() => {
-      const fetchCharacters = async () => {
-         const random1 = Math.round(Math.random() * 825) + 1;
-         const random2 = Math.round(Math.random() * 825) + 1;
-
-         const response = await fetch(`${BASE_URL}/${random1},${random2}`);
-         const data = await response.json();
-
-         setCharacters((prev) => [...prev, ...data]);
-      }
-
-      fetchCharacters();
-   }, []);
-
-   const changeTheme = () => {
-      document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'light' : 'dark');
-      setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark');
-   }
+   const [characters, setCharacters] = useState([]);
 
    const onSearch = async (event) => {
       event.preventDefault();
@@ -42,34 +17,33 @@ function App() {
          return;
       }
 
-      const response = await fetch(`${BASE_URL}/${searchQuery}`);
-      const data = await response.json();
-      if (response.status === 200) {
-         setCharacters((previous) => [...previous, data]);
+      try {
+         const data = await fetchCharacterById(searchQuery);
+         setCharacters((currentCharacters) => [data, ...currentCharacters]);
+      } catch (error) {
+         console.error(error);
       }
    }
 
-   const navbarProps = { changeTheme, theme, onSearch, searchQuery, setSearchQuery, setAccess }
-
-   const login = (userData) => {
-      if (userData.password === PASSWORD && userData.email === EMAIL) {
-         setAccess(true);
-         navigate('/home')
-      }
+   const removeCharacter = (id) => {
+      setCharacters((prev) => prev.filter((character) => character.id !== id));
    }
+
+   const navbarProps = { onSearch, searchQuery, setSearchQuery }
 
    return (
-      <>
-         {location.pathname !== '/' && <NavBar {...navbarProps} />}
+      <AuthenticationProvider>
          <Routes>
-            <Route path='/' element={<Authentication login={login} />} />
-            <Route path='/home' element={<Home characters={characters} access={access} setCharacters={setCharacters} />} />
-            <Route path='/about' element={<About access={access} />} />
-            <Route path='/favorites' element={<Favorites access={access} setCharacters={setCharacters} />} />
-            <Route path='/detail/:id' element={<Detail access={access} />} />
+            <Route path='/' element={<Authentication />} />
+            <Route element={<ProtectedRoutes navbarProps={navbarProps} />}>
+               <Route path='/home' element={<Home characters={characters} removeCharacter={removeCharacter} />} />
+               <Route path='/about' element={<About />} />
+               <Route path='/favorites' element={<Favorites removeCharacter={removeCharacter} />} />
+               <Route path='/detail/:id' element={<Detail />} />
+            </Route>
             <Route path='*' element={<NotFound />} />
          </Routes>
-      </>
+      </AuthenticationProvider>
    );
 }
 
