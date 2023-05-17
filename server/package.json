@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend REST API with Express.Js",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "nodemon ./src/index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "Express.JS",
+    "REST",
+    "API"
+  ],
+  "author": "Daniel R. Ricra Q.",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "2.0.22"
+  }
+}
