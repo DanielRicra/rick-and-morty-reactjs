@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './Detail.css';
 import useCharacter from "../../hooks/useCharacter";
 
@@ -8,9 +8,11 @@ const CharacterDetail = () => {
 
   return (
     <div className="character-detail container">
-      {loading ? (
+      {loading && !error && (
         <p className="character-detail__loading">Loading...</p>
-      ) : (
+      )}
+
+      {!loading && !error && (
         <>
           <div className="character-detail__info">
             <h1>{character.name}</h1>
@@ -26,14 +28,14 @@ const CharacterDetail = () => {
 
             <div>
               <span>Origin:</span>
-              <p>{character.origin?.name}</p>
+              <p>{character.origin}</p>
             </div>
 
             <div>
               <span>First seen in:</span>
               <p>{character.episode?.at(0)}</p>
             </div>
-            
+
             <div>
               <span>Last seen in:</span>
               <p>{character.episode?.at(-1)}</p>
@@ -42,8 +44,16 @@ const CharacterDetail = () => {
           <img src={character.image} alt={character.name} />
         </>
       )}
+
       {error && !loading && (
-        <p className="character-detail__error">{error.message}</p>
+        <div className="character-detail__error-container">
+          <p className="character-detail__error">{error}</p>
+          <button>
+            <Link to='/home'>
+              Go back Homepage
+            </Link>
+          </button>
+        </div>
       )}
     </div>
   )

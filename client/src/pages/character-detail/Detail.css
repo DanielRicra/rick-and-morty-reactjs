@@ -14,7 +14,7 @@
 .character-detail__loading {
   font-size: 24px;
   color: var(--text-color2);
-  animation: loading 100ms ease-in-out infinite;
+  animation: loading 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
 @keyframes loading {
@@ -41,4 +41,26 @@
   max-width: 440px;
   border-radius: .5rem;
   object-fit: contain;
+}
+
+.character-detail__error-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.character-detail__error-container button {
+  padding: .6rem 1rem;
+  border-radius: .5rem;
+  background-color: var(--button-background-color);
+  border: none;
+}
+
+.character-detail__error-container button:hover {
+  background-color: var(--button-background-hover);
+}
+
+.character-detail__error-container a {
+  text-decoration: none;
+  color: #f9f9f9;
 }
