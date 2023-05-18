@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 import { fetchCharacterById } from '../services/characterService';
 
 const useCharacter = (characterId) => {
-   const [character, setCharacter] = useState(null);
+   const [character, setCharacter] = useState({});
    const [loading, setLoading] = useState(false);
-   const [error, setError] = useState(null);
+   const [error, setError] = useState('');
 
    useEffect(() => {
       const fetchCharacter = async () => {
          setLoading(true);
-         setError(null);
+         setError('');
          try {
             const data = await fetchCharacterById(characterId);
             setCharacter(data);
          } catch (error) {
-            setError(error);
+            setError(error.message);
          } finally {
             setLoading(false);
          }
