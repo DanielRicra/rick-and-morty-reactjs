@@ -1,18 +1,18 @@
-import http from 'http';
-import getCharacterByID from './controllers/characterController.js';
+import express from 'express';
+import characterRouter from './routes/characterRouter.js';
 
 const PORT = 3001;
 
-const server = http.createServer((req, res) => {
-   res.setHeader('Access-Control-Allow-Origin', '*');
-   const path = req.url;
+const app = express();
 
-   if (path.includes('/api/v1/character')) {
-      const id = path.split('/').at(-1);
-      getCharacterByID(res, id);
-   }
+app.use('/api/v1/character', characterRouter);
+
+app.get('/', (_, res) => {
+   res.send('Welcome to the Rick and Morty API!');
 });
 
-server.listen(PORT, () => {
+const server = app.listen(PORT, () => {
    console.log(`server is running on port http://localhost:${PORT}`);
 });
+
+export default server;
