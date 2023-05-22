@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { formValidation } from "../../utils/validation";
 import './Auth.css';
 import { AuthenticationContext } from "../../context/AuthenticationContext";
+import { Navigate } from "react-router-dom";
 
 const Authentication = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -15,7 +16,13 @@ const Authentication = () => {
       messages: [],
     }
   });
-  const { login } = useContext(AuthenticationContext)
+  const { login, isAuthenticated } = useContext(AuthenticationContext);
+
+  if (isAuthenticated) {
+    return (
+      <Navigate to='/home' />
+    );
+  }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -40,9 +47,9 @@ const Authentication = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password } = formValidation(formData);
+    const errorMessages = formValidation(formData);
 
-    if (email.length || password.length) {
+    if (errorMessages.email.length || errorMessages.password.length) {
       alert('Invalid data');
       return;
     }
