@@ -38,7 +38,7 @@ function App() {
             <Route element={<ProtectedRoutes navbarProps={navbarProps} />}>
                <Route path='/home' element={<Home characters={characters} removeCharacter={removeCharacter} />} />
                <Route path='/about' element={<About />} />
-               <Route path='/favorites' element={<Favorites removeCharacter={removeCharacter} />} />
+               <Route path='/favorites' element={<Favorites />} />
                <Route path='/detail/:id' element={<Detail />} />
             </Route>
             <Route path='*' element={<NotFound />} />
