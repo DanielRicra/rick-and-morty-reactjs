@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 
-import { removeFromFavorites, setFilterByGender, setOrder } from '../../redux/actions';
+import { setFilterByGender, setOrder } from '../../redux/actions';
 import Card from "../../components/cards/Card";
 import './Favorites.css';
 
@@ -15,7 +15,7 @@ function getFilteredData(characters, filter, order) {
     .sort(sortCb);
 }
 
-const Favorites = ({ access, removeCharacter }) => {
+const Favorites = () => {
   const dispatch = useDispatch();
 
   const order = useSelector((state) => state.order);
@@ -28,11 +28,6 @@ const Favorites = ({ access, removeCharacter }) => {
         order
       );
     });
-
-  const handleRemoveCard = (id) => {
-    dispatch(removeFromFavorites(id));
-    removeCharacter(id);
-  }
 
   const handleOrder = (e) => {
     dispatch(setOrder(e.target.value));
@@ -66,7 +61,6 @@ const Favorites = ({ access, removeCharacter }) => {
           <Card
             key={character.id}
             character={character}
-            removeCard={() => handleRemoveCard(character.id)}
           />
         ))}
       </div>
