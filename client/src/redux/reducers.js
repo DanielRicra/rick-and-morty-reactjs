@@ -19,7 +19,7 @@ function favorites(state = initialState, action) {
       return {
         ...state,
         myFavorites: [...state.myFavorites
-          .filter((character) => character.id !== payload.characterId)],
+          .filter((character) => character.id !== payload.characterID)],
       }
 
     default:
