@@ -1,5 +1,6 @@
 import { fetchCharacterById } from '../service/characterService.js';
 import { validateCharacterId } from '../utils/validations.js';
+import { HTTP_STATUS } from '../utils/constants.js';
 
 const getCharacterByID = async (req, res) => {
    const { characterId } = req.params;
@@ -10,7 +11,7 @@ const getCharacterByID = async (req, res) => {
       const data = await fetchCharacterById(characterId);
 
       if (data.error) {
-         res.status(404).json({ error: data.error });
+         res.status(HTTP_STATUS.NOT_FOUND).json({ error: data.error });
          return;
       }
       
@@ -27,10 +28,10 @@ const getCharacterByID = async (req, res) => {
          episode: data.episode,
       };
 
-      res.status(200).json(character);
+      res.status(HTTP_STATUS.OK).json(character);
    } catch (error) {
       console.error('Error in getCharacterByID: ', error);
-      res.status(500).json({ error: error.message });
+      res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: error.message });
    }
 };
 

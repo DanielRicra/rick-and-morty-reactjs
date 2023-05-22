@@ -1,9 +1,12 @@
 import express from 'express';
 import { characterRoutes, favoriteRoutes, userRoutes } from './routes/index.js';
+import morgan from 'morgan';
+
 const PORT = 3001;
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(express.json());
 app.use((_, res, next) => {
    res.header('Access-Control-Allow-Origin', '*');

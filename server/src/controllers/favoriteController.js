@@ -11,7 +11,7 @@ export const saveFavorite = (req, res) => {
 
    if (!id || !name || !status || !species || !gender || !image || !origin) {
       res.status(HTTP_STATUS.BAD_REQUEST).json({
-         message: 'Please fill all fields',
+         error: 'Please fill all fields',
       });
       return;
    }
@@ -35,7 +35,7 @@ export const deleteFavoriteByID = (req, res) => {
    const { characterID } = req.params;
 
    const favoriteIndex = myFavoriteCharacters.findIndex(
-      (favCharacter) => favCharacter.id === characterID
+      (favCharacter) => favCharacter.id === +characterID
    );
 
    if (favoriteIndex === -1) {
