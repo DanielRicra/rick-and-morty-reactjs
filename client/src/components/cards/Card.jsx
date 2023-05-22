@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -6,11 +5,10 @@ import { Link } from 'react-router-dom';
 import './Card.css';
 import { trashIcon } from '../../assets';
 import { sleep } from '../../utils/helpers';
-import { addToFavorites, removeFromFavorites } from '../../redux/actions';
+import { toggleFavorite } from '../../redux/actions';
 
 function Card({ character, removeCard }) {
    const cardRef = useRef(null);
-   const [isFavorite, setIsFavorite] = useState(false);
    const [imageHovered, setImageHovered] = useState(false);
    const dispatch = useDispatch();
    const myFavorites = useSelector((state) => state.favorites.myFavorites);
@@ -27,28 +25,20 @@ function Card({ character, removeCard }) {
          removeCard();
       });
 
-      dispatch(removeFromFavorites(character.id));
+      dispatch(toggleFavorite(character));
    }
 
    const handleFavorite = () => {
-      const updateFavorites = isFavorite ?
-            () => removeFromFavorites(character.id) : 
-            () => addToFavorites(character);
-      dispatch(updateFavorites());
-      setIsFavorite((prev) => !prev);
+      dispatch(toggleFavorite(character));
    }
-
-   useEffect(() => {
-      if (myFavorites.find((fav) => fav.id === character.id)) {
-         setIsFavorite(true);
-      }
-   }, [myFavorites, character]);
 
    return (
       <div className='card' ref={cardRef}>
-         <button type='button' className='card__close-card-button' onClick={handleRemoveCard}>
-            <img src={trashIcon} alt="delete-icon" />
-         </button>
+         {removeCard ? (
+            <button type='button' className='card__close-card-button' onClick={handleRemoveCard}>
+               <img src={trashIcon} alt="delete-icon" />
+            </button>
+         ) : null}
 
          <div className='card__info'>
             <h3><Link to={`/detail/${character.id}`}>{character.name}</Link></h3>
@@ -70,7 +60,7 @@ function Card({ character, removeCard }) {
             />
             {imageHovered && (
                <button type='button' className='card__favorite-button' onClick={handleFavorite}>
-                  {isFavorite ? '♥' : '♡'}
+                  {myFavorites.some((favorite) => favorite.id === character.id) ? '♥' : '♡'}
                </button>
             )}
          </div>
