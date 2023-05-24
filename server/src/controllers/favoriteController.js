@@ -2,7 +2,7 @@ import { HTTP_STATUS } from '../utils/constants.js';
 
 const myFavoriteCharacters = [];
 
-export const getAllFavorites = (req, res) => {
+export const getAllFavorites = (_, res) => {
    res.status(HTTP_STATUS.OK).json(myFavoriteCharacters);
 }
 
@@ -40,7 +40,7 @@ export const deleteFavoriteByID = (req, res) => {
 
    if (favoriteIndex === -1) {
       res.status(HTTP_STATUS.NOT_FOUND).json({
-         message: 'Character not found in favorites',
+         error: 'Character not found in favorites',
       });
       return;
    }

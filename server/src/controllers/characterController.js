@@ -30,7 +30,6 @@ const getCharacterByID = async (req, res) => {
 
       res.status(HTTP_STATUS.OK).json(character);
    } catch (error) {
-      console.error('Error in getCharacterByID: ', error);
       res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ error: error.message });
    }
 };
