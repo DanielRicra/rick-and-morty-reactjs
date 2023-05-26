@@ -1,9 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useLocalStorage from "../hooks/useLocalStorage";
-
-const EMAIL = 'test@gmail.com';
-const PASSWORD = 'some45';
+import { loginUser } from "../services/login";
 
 export const AuthenticationContext = createContext();
 
@@ -12,10 +10,14 @@ const AuthenticationProvider = ({ children }) => {
    const [isAuthenticated, setIsAuthenticated] = useState(false);
    const navigate = useNavigate();
 
-   const login = (userData) => {
-      if (userData.password === PASSWORD && userData.email === EMAIL) {
-         setStoredUser({ email: userData.email, access: true });
-         navigate('/home');
+   const login = async (userData) => {
+      try {
+         const loginData = await loginUser(userData);
+         setStoredUser({ email: loginData.result.email, access: true });
+         setIsAuthenticated(true);
+      } catch (error) {
+         console.log('login error');
+         alert('Bad credentials');
       }
    };
 
