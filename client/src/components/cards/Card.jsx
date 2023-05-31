@@ -46,7 +46,7 @@ function Card({ character, removeCard }) {
                <span className={` ${character.status === 'Alive' ? 'green' : 'red'}`}></span>
                <p>{character.status} - {character.species}</p>
             </div>
-            <p><span>Origin: </span>{character.origin?.name}</p>
+            <p><span>Origin: </span>{character.origin}</p>
             <p>{character.gender}</p>
          </div>
          <div
