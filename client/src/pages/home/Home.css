@@ -3,15 +3,37 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(81, 78, 99, 0.192), rgba(22, 20, 31, 0.733)), url(../../assets/rm-bg.webp);
+  background-size: cover;
+  overflow: hidden;
 }
 
 .home__characters {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: auto;
+  padding-right: .5rem;
+}
+.home__characters::-webkit-scrollbar {
+  width: 10px;
+}
+.home__characters::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--card-background-color);
+}
+
+.home__characters::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.home__characters::-webkit-scrollbar-track:hover {
+  background-color: #8c8394;
 }
 
 .home__characters h2 {
+  margin: 0 0 1.8rem 0;
   width: 100%;
   text-align: left;
   font-size: 32px;
