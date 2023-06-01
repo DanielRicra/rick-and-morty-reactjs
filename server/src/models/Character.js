@@ -14,8 +14,14 @@ const createCharacterModel = (sequelize) => {
          },
          name: { type: DataTypes.STRING, allowNull: false },
          status: { type: DataTypes.STRING, allowNull: false },
-         species: { type: DataTypes.STRING, allowNull: false },
-         gender: { type: DataTypes.STRING, allowNull: false },
+         species: {
+            type: DataTypes.ENUM('alive', 'dead', 'unknown'),
+            allowNull: false,
+         },
+         gender: {
+            type: DataTypes.ENUM('male', 'female', 'unknown', 'genderless'),
+            allowNull: false,
+         },
          type: DataTypes.STRING,
          image: { type: DataTypes.STRING, allowNull: false },
          origin: { type: DataTypes.STRING, allowNull: false },
