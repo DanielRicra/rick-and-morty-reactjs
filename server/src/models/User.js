@@ -1,6 +1,9 @@
 import { DataTypes } from 'sequelize';
 
-const createUserModel = (sequelize) => {
+/**
+ * @param {import('sequelize').Sequelize} sequelize
+ */
+const defineUser = (sequelize) => {
    return sequelize.define(
       'user',
       {
@@ -17,6 +20,9 @@ const createUserModel = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
+            validate: {
+               isEmail: true,
+            }
          },
          password: {
             type: DataTypes.STRING,
@@ -29,4 +35,4 @@ const createUserModel = (sequelize) => {
    );
 };
 
-export default createUserModel;
+export default defineUser;
