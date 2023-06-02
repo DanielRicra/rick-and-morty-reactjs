@@ -4,6 +4,16 @@ Welcome to the web application project!
 
 This project consists of two parts: the client-side and the server-side.
 
+## Screenshots
+
+1. Homepage
+![Screenshot 1: Homepage](./screenshots/home-01.png)
+2. Hover on a Character Card
+![Screenshot 2: Hover on a Character Card](./screenshots/home-hover.png)
+3. Favorites page
+![Screenshot 3: Favorites page](./screenshots/favorites.png)
+
+
 ## Client-Side
 
 The client-side of the web application is built using React.js and Redux. It provides a user interface that allows users to view and interact with characters from the popular TV series "Rick and Morty". Users can search for a character by their ID and save their favorite characters, also can view character details.
