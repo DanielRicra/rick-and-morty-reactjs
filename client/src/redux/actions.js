@@ -46,10 +46,12 @@ export const toggleFavorite = (character) => {
          );
 
          if (favorite) {
-            await removeFavoriteByID(character.id);
+            // TODO: fix the userId, must be a dynamic value of the logged user
+            await removeFavoriteByID(1, character.id);
             dispatch(deleteFavoriteByID(character.id));
          } else {
-            await saveToFavorites(character);
+            // TODO: fix the userId, must be a dynamic value of the logged user
+            await saveToFavorites({ userId: 1, characterId: character.id });
             dispatch(addToFavorites(character));
          }
       } catch (error) {
