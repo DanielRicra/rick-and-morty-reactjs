@@ -54,7 +54,7 @@
 
   background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
     no-repeat right 0.5em center / 1.4em,
-    linear-gradient(to left, var(--button-background-color) 2.5em, rgba(255, 255, 255, 0.2) 2.5em);
+    linear-gradient(to left, var(--button-background-color) 2.5em, rgba(68, 67, 67, 0.8) 2.5em);
   border-radius: 0.25em;
   box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
