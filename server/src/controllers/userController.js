@@ -1,10 +1,10 @@
 import { HTTP_STATUS } from '../utils/constants.js';
-import users from '../utils/user.js';
+import { User } from '../db.js';
 
-export const login = (req, res) => {
+export const login = async (req, res) => {
    const { email, password } = req.body;
 
-   const existingUser = users.find((user) => user.email === email);
+   const existingUser = await User.findOne({ where: { email }});
 
    if (!existingUser) {
       return res.status(HTTP_STATUS.NOT_FOUND).json({ error: "User doesn't exist" });
@@ -15,7 +15,7 @@ export const login = (req, res) => {
    }
 
    res.status(HTTP_STATUS.OK).json({
-      result: { email: existingUser.email },
+      result: { email: existingUser.email, name: existingUser.name },
       access: true,
    });
 };

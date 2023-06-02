@@ -1,51 +1,86 @@
 import { HTTP_STATUS } from '../utils/constants.js';
+import { User, Character, FavoriteCharacter } from '../db.js';
 
-const myFavoriteCharacters = [];
-
-export const getAllFavorites = (_, res) => {
-   res.status(HTTP_STATUS.OK).json(myFavoriteCharacters);
+export const getAllFavorites = async (_, res) => {
+   const allFavorites = await FavoriteCharacter.findAll();
+   res.status(HTTP_STATUS.OK).json(allFavorites);
 }
 
-export const saveFavorite = (req, res) => {
-   const { id, name, status, species, gender, image, origin } = req.body;
+export const getFavoritesByUserID = async (req, res) => {
+   const { userId } = req.params;
 
-   if (!id || !name || !status || !species || !gender || !image || !origin) {
-      res.status(HTTP_STATUS.BAD_REQUEST).json({
-         error: 'Please fill all fields',
+   const user = await User.findByPk(userId);
+
+   if (!user) {
+      res.status(HTTP_STATUS.NOT_FOUND).json({
+         error: 'User not found',
       });
       return;
    }
 
-   myFavoriteCharacters.push({
-      id,
-      name,
-      status,
-      species,
-      gender,
-      image,
-      origin,
+   const favoriteCharacters = await user.getCharacters();
+
+   res.status(HTTP_STATUS.OK).json(favoriteCharacters);
+}
+
+export const saveFavorite = async (req, res) => {
+   const { userId, characterId } = req.body;
+
+   if (!userId || !characterId) {
+      res.status(HTTP_STATUS.BAD_REQUEST).json({
+         error: 'User and Character Id are required',
+      });
+      return;
+   }
+
+   const user = await User.findByPk(userId);
+   const character = await Character.findOne({
+      where: {
+         apiId: characterId,
+      }
    });
+
+   if (!user || !character) {
+      res.status(HTTP_STATUS.NOT_FOUND).json({
+         error: 'User or Character not found',
+      });
+      return;
+   }
+
+   // Add character to user's favorites
+   await user.addCharacter(character);
 
    res.status(HTTP_STATUS.CREATED).json({
       message: 'Character saved successfully',
    });
 };
 
-export const deleteFavoriteByID = (req, res) => {
-   const { characterID } = req.params;
+export const deleteFavoriteByID = async (req, res) => {
+   const { characterID, userID } = req.params;
 
-   const favoriteIndex = myFavoriteCharacters.findIndex(
-      (favCharacter) => favCharacter.id === +characterID
-   );
+   const user = await User.findByPk(userID);
+   const character = await Character.findOne({
+      where: {
+         apiId: characterID,
+      }
+   });
 
-   if (favoriteIndex === -1) {
+   if (!user || !character) {
       res.status(HTTP_STATUS.NOT_FOUND).json({
-         error: 'Character not found in favorites',
+         error: 'User or Character not found',
       });
       return;
    }
 
-   myFavoriteCharacters.splice(favoriteIndex, 1);
+   // Remove character from user's favorites
+   const response = await user.removeCharacter(character);
+   
+   if (!response) {
+      res.status(HTTP_STATUS.NOT_FOUND).json({
+         error: 'Error deleting character, might not found in user\'s favorites',
+      });
+      return;
+   }
 
    res.status(HTTP_STATUS.OK).json({
       message: 'Character deleted successfully',
