@@ -77,16 +77,13 @@ To start using the server-side of the project, follow these steps:
 2. Clone the repository to your local machine if you haven't already.
 3. Navigate to the `server` directory.
 4. Install the project dependencies by running `npm install`.
-5. Start the server by running `npm start` or `npm run dev` if you prefer to use nodemon for development.
+5. Start the server by running `npm start`.
 6. The server will start running on `http://localhost:3001`.
 
 ## Contribution
 
 If you would like to contribute to this project, you are welcome to submit pull requests with bug fixes, enhancements, or new features. Please make sure to follow the contribution guidelines outlined in the repository's `CONTRIBUTING.md` file.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+Note: The CONTRIBUTING.md file will be created `soon`.
 
 ## Feedback
 
